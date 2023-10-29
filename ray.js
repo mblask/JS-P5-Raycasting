@@ -10,6 +10,10 @@ class Ray{
 		line(this.pos.x, this.pos.y, this.pos.x + this.dir.x * 10, this.pos.y + this.dir.y * 10);
 	}
 
+	update(x, y) {
+		this.pos = createVector(x, y);
+	}
+
 	lookAt(dirX, dirY) {
 		this.dir.x = dirX - this.pos.x;
 		this.dir.y = dirY - this.pos.y;
@@ -29,21 +33,20 @@ class Ray{
 
 		const denominator = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
 		if (denominator == 0) {
-			return false;
+			return null;
 		}
 
 		const t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / denominator;
 		const u = ((x1 - x3) * (y1 - y2) - (y1 - y3) * (x1 - x2)) / denominator;
 
 		if (t > 0 && t < 1 && u > 0) {
-			let ix = x1 + t*(x2 - x1);
-			let iy = y1 + t*(y2 - y1);
-			stroke(255);
-			ellipse(ix, iy, 10);
-			return true;
+			let px = x1 + t*(x2 - x1);
+			let py = y1 + t*(y2 - y1);
+			let pt = createVector(px, py);
+			return pt;
 		}
 		else {
-			return false;
+			return null;
 		}
 	}
 
